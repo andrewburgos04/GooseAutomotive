@@ -5,10 +5,10 @@ import { inspectionCounts, vehicleTitle } from "../lib/format";
 import { useCurrentUser, useShop } from "../store";
 
 const RATINGS: { id: Rating; label: string; className: string }[] = [
-  { id: "ok", label: "Green", className: "bg-ok" },
-  { id: "recommend", label: "Yellow", className: "bg-warn text-ink" },
-  { id: "urgent", label: "Red", className: "bg-urgent" },
-  { id: "na", label: "N/A", className: "bg-white/20" },
+  { id: "ok", label: "Green", className: "bg-ok text-white" },
+  { id: "recommend", label: "Yellow", className: "bg-warn text-navy" },
+  { id: "urgent", label: "Red", className: "bg-urgent text-white" },
+  { id: "na", label: "N/A", className: "bg-mist text-navy" },
 ];
 
 export function InspectionPage() {
@@ -38,15 +38,15 @@ export function InspectionPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <Link to={`/ro/${ro.id}`} className="text-sm text-gold">← Back to {ro.number}</Link>
-      <h1 className="mt-2 font-display text-4xl">32-point DVI</h1>
-      <p className="mb-4 text-paper/70">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)} · {counts.done}/{counts.total}</p>
+      <Link to={`/ro/${ro.id}`} className="text-sm font-semibold text-goose">← Back to {ro.number}</Link>
+      <h1 className="mt-2 text-4xl font-extrabold text-navy">32-point DVI</h1>
+      <p className="mb-4 text-muted">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)} · {counts.done}/{counts.total}</p>
       <div className="mb-4 flex flex-wrap gap-2">
-        <button className="rounded-lg bg-white/10 px-3 py-2 text-sm" type="button" onClick={() => startInspection(ro.id, user.id)}>
+        <button className="rounded-lg bg-mist px-3 py-2 text-sm" type="button" onClick={() => startInspection(ro.id, user.id)}>
           Start / claim inspection
         </button>
         <button
-          className="rounded-lg bg-gold px-3 py-2 text-sm font-semibold text-ink"
+          className="rounded-lg bg-goose px-3 py-2 text-sm font-semibold text-white"
           type="button"
           onClick={() => {
             completeInspection(ro.id);
@@ -59,10 +59,10 @@ export function InspectionPage() {
       <div className="space-y-6">
         {grouped.map(([category, items]) => (
           <section key={category}>
-            <h2 className="mb-2 font-display text-2xl text-gold">{category}</h2>
+            <h2 className="mb-2 text-2xl font-extrabold text-navy-brand">{category}</h2>
             <div className="grid gap-3">
               {items.map((item) => (
-                <article key={item.id} className="rounded-xl border border-white/10 bg-ink-800 p-3">
+                <article key={item.id} className="rounded-xl border border-navy/10 bg-white p-3">
                   <div className="mb-2 flex items-start justify-between gap-3">
                     <h3 className="font-semibold">{item.name}</h3>
                     <div className="flex gap-1">
@@ -70,7 +70,7 @@ export function InspectionPage() {
                         <button
                           key={String(rating.id)}
                           type="button"
-                          className={`h-10 min-w-10 rounded-lg px-2 text-xs font-bold ${rating.className} ${item.rating === rating.id ? "ring-2 ring-white" : "opacity-60"}`}
+                          className={`h-10 min-w-10 rounded-lg px-2 text-xs font-bold ${rating.className} ${item.rating === rating.id ? "ring-2 ring-navy" : "opacity-60"}`}
                           onClick={() => setRating(ro.id, item.id, rating.id)}
                         >
                           {rating.label[0]}
@@ -79,7 +79,7 @@ export function InspectionPage() {
                     </div>
                   </div>
                   <input
-                    className="w-full rounded-lg border border-white/10 bg-ink px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-navy/10 bg-white px-3 py-2 text-sm"
                     placeholder="Notes, measurements, photo description…"
                     value={item.notes}
                     onChange={(event) => setRating(ro.id, item.id, item.rating, event.target.value)}

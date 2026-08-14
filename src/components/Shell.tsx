@@ -4,8 +4,8 @@ import { ClipboardList, Gauge, LogOut, Plus, Users, Wrench } from "lucide-react"
 import { useCurrentUser, useShop } from "../store";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium ${
-    isActive ? "bg-gold text-ink" : "text-paper/80 hover:bg-ink-700"
+  `flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold ${
+    isActive ? "bg-goose text-white" : "text-navy hover:bg-mist"
   }`;
 
 export function Shell({ children }: { children: ReactNode }) {
@@ -20,16 +20,15 @@ export function Shell({ children }: { children: ReactNode }) {
   if (!user || !location) return null;
 
   return (
-    <div className="min-h-screen bg-ink text-paper">
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-ink-800/95 backdrop-blur">
+    <div className="min-h-screen bg-mist text-navy">
+      <header className="sticky top-0 z-40 border-b border-navy/10 bg-white shadow-sm">
         <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-4 py-3">
-          <img src="/logo.svg" alt="" className="h-9 w-9" />
+          <img src="/logo.png" alt="Goose Automotive" className="h-10 w-auto" />
           <div className="min-w-0">
-            <p className="font-display text-lg leading-none">Goose Shop</p>
-            <p className="truncate text-xs text-paper/60">{user.title} · {user.name}</p>
+            <p className="truncate text-xs font-medium text-muted">{user.title} · {user.name}</p>
           </div>
           <select
-            className="ml-auto max-w-[220px] rounded-lg border border-white/10 bg-ink-700 px-3 py-2 text-sm"
+            className="ml-auto max-w-[220px] rounded-lg border border-navy/15 bg-mist px-3 py-2 text-sm font-medium text-navy"
             value={location.id}
             onChange={(event) => setLocation(event.target.value as typeof location.id)}
           >
@@ -41,7 +40,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </select>
           {user.role !== "tech" && (
             <button
-              className="hidden items-center gap-1 rounded-lg bg-gold px-3 py-2 text-sm font-semibold text-ink sm:flex"
+              className="hidden items-center gap-1 rounded-full bg-goose px-4 py-2 text-sm font-bold text-white hover:bg-goose-dark sm:flex"
               onClick={() => navigate("/ro/new")}
               type="button"
             >
@@ -58,10 +57,10 @@ export function Shell({ children }: { children: ReactNode }) {
           <NavLink to="/customers" className={linkClass}><Users className="h-4 w-4" /> Customers</NavLink>
           <NavLink to="/ro/new" className={linkClass}><Plus className="h-4 w-4" /> New RO</NavLink>
           <div className="mt-auto space-y-1 pt-8">
-            <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-paper/70 hover:bg-ink-700" onClick={resetDemo} type="button">
+            <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-muted hover:bg-white" onClick={resetDemo} type="button">
               <Gauge className="h-4 w-4" /> Reset demo
             </button>
-            <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-paper/70 hover:bg-ink-700" onClick={logout} type="button">
+            <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-muted hover:bg-white" onClick={logout} type="button">
               <LogOut className="h-4 w-4" /> Sign out
             </button>
           </div>
@@ -69,11 +68,11 @@ export function Shell({ children }: { children: ReactNode }) {
         <main className="min-w-0 flex-1 px-4 py-4 pb-24 md:pb-8">{children}</main>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-white/10 bg-ink-800 md:hidden">
-        <NavLink to="/board" className="flex flex-col items-center gap-1 py-3 text-[11px]"><ClipboardList className="h-5 w-5" /> Board</NavLink>
-        <NavLink to="/techs" className="flex flex-col items-center gap-1 py-3 text-[11px]"><Wrench className="h-5 w-5" /> Techs</NavLink>
-        <NavLink to="/customers" className="flex flex-col items-center gap-1 py-3 text-[11px]"><Users className="h-5 w-5" /> Customers</NavLink>
-        <NavLink to="/ro/new" className="flex flex-col items-center gap-1 py-3 text-[11px]"><Plus className="h-5 w-5" /> New RO</NavLink>
+      <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-navy/10 bg-white text-navy md:hidden">
+        <NavLink to="/board" className="flex flex-col items-center gap-1 py-3 text-[11px] font-semibold"><ClipboardList className="h-5 w-5" /> Board</NavLink>
+        <NavLink to="/techs" className="flex flex-col items-center gap-1 py-3 text-[11px] font-semibold"><Wrench className="h-5 w-5" /> Techs</NavLink>
+        <NavLink to="/customers" className="flex flex-col items-center gap-1 py-3 text-[11px] font-semibold"><Users className="h-5 w-5" /> Customers</NavLink>
+        <NavLink to="/ro/new" className="flex flex-col items-center gap-1 py-3 text-[11px] font-semibold"><Plus className="h-5 w-5" /> New RO</NavLink>
       </nav>
     </div>
   );

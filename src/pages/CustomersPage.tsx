@@ -23,9 +23,9 @@ export function CustomersPage() {
 
   return (
     <div>
-      <h1 className="font-display text-4xl">Customers & vehicles</h1>
+      <h1 className="text-4xl font-extrabold text-navy">Customers & vehicles</h1>
       <input
-        className="my-4 w-full max-w-xl rounded-xl border border-white/10 bg-ink-800 px-4 py-3"
+        className="my-4 w-full max-w-xl rounded-xl border border-navy/10 bg-white px-4 py-3"
         placeholder="Search name, plate, VIN, company…"
         value={query}
         onChange={(event) => setQuery(event.target.value)}
@@ -34,25 +34,25 @@ export function CustomersPage() {
         {filtered.map((customer) => {
           const owned = vehicles.filter((v) => v.customerId === customer.id);
           return (
-            <article key={customer.id} className="rounded-2xl border border-white/10 bg-ink-800 p-4">
+            <article key={customer.id} className="rounded-2xl border border-navy/10 bg-white p-4">
               <div className="flex flex-wrap justify-between gap-2">
                 <div>
                   <h2 className="text-xl font-semibold">{customer.company ?? customer.name}</h2>
-                  {customer.company && <p className="text-sm text-paper/60">{customer.name}</p>}
-                  <p className="text-sm text-paper/60">{customer.phone} · {customer.email}</p>
+                  {customer.company && <p className="text-sm text-muted">{customer.name}</p>}
+                  <p className="text-sm text-muted">{customer.phone} · {customer.email}</p>
                 </div>
-                {customer.fleet && <span className="h-fit rounded-full bg-gold/20 px-2 py-0.5 text-xs text-gold-bright">Fleet</span>}
+                {customer.fleet && <span className="h-fit rounded-full bg-goose/10 px-2 py-0.5 text-xs text-goose-bright">Fleet</span>}
               </div>
               <div className="mt-3 grid gap-2 md:grid-cols-2">
                 {owned.map((vehicle) => {
                   const history = ros.filter((ro) => ro.vehicleId === vehicle.id && ro.locationId === locationId);
                   return (
-                    <div key={vehicle.id} className="rounded-xl bg-black/20 p-3 text-sm">
+                    <div key={vehicle.id} className="rounded-xl bg-mist p-3 text-sm">
                       <p className="font-semibold">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</p>
-                      <p className="text-paper/55">{vehicle.plate} · {vehicle.vin} · {vehicle.mileage.toLocaleString()} mi</p>
+                      <p className="text-muted">{vehicle.plate} · {vehicle.vin} · {vehicle.mileage.toLocaleString()} mi</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {history.slice(0, 3).map((ro) => (
-                          <Link key={ro.id} to={`/ro/${ro.id}`} className="rounded bg-white/10 px-2 py-1 text-xs">{ro.number}</Link>
+                          <Link key={ro.id} to={`/ro/${ro.id}`} className="rounded bg-mist px-2 py-1 text-xs">{ro.number}</Link>
                         ))}
                       </div>
                     </div>

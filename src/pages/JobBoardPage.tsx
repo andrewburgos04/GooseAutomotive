@@ -39,20 +39,20 @@ export function JobBoardPage() {
     <div>
       <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
         <div>
-          <p className="text-xs uppercase tracking-[0.18em] text-gold">Job board</p>
-          <h1 className="font-display text-4xl">{location?.name}</h1>
+          <p className="font-accent text-xs font-bold uppercase tracking-[0.18em] text-goose">Job board</p>
+          <h1 className="text-4xl font-extrabold text-navy">{location?.name}</h1>
         </div>
-        <div className="flex gap-6 text-sm text-paper/70">
-          <div><span className="block text-2xl font-semibold text-paper">{ros.length}</span> open cars</div>
-          <div><span className="block text-2xl font-semibold text-gold-bright">{money(aro)}</span> ARO (ready/posted)</div>
+        <div className="flex gap-6 text-sm text-muted">
+          <div><span className="block text-2xl font-extrabold text-navy">{ros.length}</span> open cars</div>
+          <div><span className="block text-2xl font-extrabold text-goose">{money(aro)}</span> ARO (ready/posted)</div>
         </div>
       </div>
       <div className="grid gap-4 xl:grid-cols-3">
         {COLUMNS.map((column) => (
-          <section key={column.id} className="rounded-2xl bg-ink-700/60 p-3">
+          <section key={column.id} className="rounded-2xl bg-white/70 p-3">
             <header className="mb-3 flex items-center justify-between px-1">
-              <h2 className="font-display text-xl">{column.title}</h2>
-              <span className="rounded-full bg-black/30 px-2 py-0.5 text-xs">{grouped[column.id].length}</span>
+              <h2 className="text-xl font-extrabold text-navy">{column.title}</h2>
+              <span className="rounded-full bg-mist px-2 py-0.5 text-xs font-bold text-navy">{grouped[column.id].length}</span>
             </header>
             <div className="grid gap-3">
               {grouped[column.id].map((ro) => (

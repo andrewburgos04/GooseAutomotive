@@ -20,32 +20,31 @@ export function EstimatePage() {
   );
 
   if (!ro || !customer || !vehicle || !location) {
-    return <div className="p-8 text-paper">Estimate not found.</div>;
+    return <div className="p-8 text-navy">Estimate not found.</div>;
   }
 
   const counts = inspectionCounts(ro);
   const total = ro.jobs.filter((job) => selected.includes(job.id)).reduce((sum, job) => sum + jobTotal(job), 0);
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <header className="bg-ink px-4 py-5 text-paper">
+    <div className="min-h-screen bg-mist text-navy">
+      <header className="border-b border-navy/10 bg-white px-4 py-5">
         <div className="mx-auto flex max-w-2xl items-center gap-3">
-          <img src="/logo.svg" alt="" className="h-10 w-10" />
+          <img src="/logo.png" alt="Goose Automotive" className="h-10 w-auto" />
           <div>
-            <p className="font-display text-xl">Goose Automotive</p>
-            <p className="text-sm text-paper/60">{location.name} · {location.phone}</p>
+            <p className="text-sm font-semibold text-muted">{location.name} · {location.phone}</p>
           </div>
         </div>
       </header>
       <main className="mx-auto max-w-2xl px-4 py-8">
-        <p className="text-sm uppercase tracking-wider text-gold">Repair estimate {ro.number}</p>
-        <h1 className="font-display text-4xl">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</h1>
-        <p className="text-ink/70">{customer.name} · {vehicle.mileage.toLocaleString()} miles</p>
-        <p className="mt-3 rounded-xl bg-white p-3 text-sm shadow-sm"><strong>Concern:</strong> {ro.concern}</p>
+        <p className="font-accent text-sm font-bold uppercase tracking-wider text-goose">Repair estimate {ro.number}</p>
+        <h1 className="text-4xl font-extrabold">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</h1>
+        <p className="text-muted">{customer.name} · {vehicle.mileage.toLocaleString()} miles</p>
+        <p className="mt-3 rounded-xl bg-white p-3 text-sm shadow-card"><strong>Concern:</strong> {ro.concern}</p>
 
         <section className="mt-6">
-          <h2 className="font-display text-2xl">Inspection snapshot</h2>
-          <p className="text-sm text-ink/60">{counts.ok} good · {counts.recommend} recommended · {counts.urgent} urgent</p>
+          <h2 className="text-2xl font-extrabold">Inspection snapshot</h2>
+          <p className="text-sm text-muted">{counts.ok} good · {counts.recommend} recommended · {counts.urgent} urgent</p>
           <ul className="mt-3 space-y-2">
             {findings.map((item) => (
               <li key={item.id} className={`rounded-xl p-3 ${item.rating === "urgent" ? "bg-red-50" : "bg-amber-50"}`}>
@@ -53,14 +52,14 @@ export function EstimatePage() {
                   {item.rating === "urgent" ? "Now" : "Soon"}
                 </span>
                 {item.name}
-                {item.notes ? <span className="block text-sm text-ink/70">{item.notes}</span> : null}
+                {item.notes ? <span className="block text-sm text-muted">{item.notes}</span> : null}
               </li>
             ))}
           </ul>
         </section>
 
         <section className="mt-6">
-          <h2 className="font-display text-2xl">Choose the work</h2>
+          <h2 className="text-2xl font-extrabold">Choose the work</h2>
           {done ? (
             <p className="mt-4 rounded-xl bg-green-50 p-4 text-ok">Approved. The shop can start the authorized jobs. Most repairs carry Goose’s 3-year / 36,000-mile nationwide warranty.</p>
           ) : (
@@ -80,7 +79,7 @@ export function EstimatePage() {
                     />
                     <span className="flex-1">
                       <span className="block font-semibold">{job.title}</span>
-                      <span className="text-sm text-ink/60">{job.concern}</span>
+                      <span className="text-sm text-muted">{job.concern}</span>
                     </span>
                     <strong>{money(jobTotal(job))}</strong>
                   </label>
@@ -89,7 +88,7 @@ export function EstimatePage() {
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-lg font-semibold">Selected {money(total)}</p>
                 <button
-                  className="rounded-full bg-ink px-5 py-3 font-semibold text-paper disabled:opacity-40"
+                  className="rounded-full bg-goose px-5 py-3 font-bold text-white disabled:opacity-40"
                   type="button"
                   disabled={selected.length === 0}
                   onClick={() => {

@@ -9,16 +9,18 @@ body,
 }
 
 body {
-  font-family: Outfit, system-ui, sans-serif;
+  font-family: Inter, system-ui, sans-serif;
+  color: #17224d;
+  background: #edf1fc;
 }
 
 h1,
 h2,
 h3,
 .font-display {
-  font-family: Oswald, "Arial Narrow", sans-serif;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-family: Inter, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
 }
 
 .scrollbar-thin::-webkit-scrollbar {
@@ -27,6 +29,6 @@ h3,
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: #2e3340;
+  background: #343399;
   border-radius: 99px;
 }

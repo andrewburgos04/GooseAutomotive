@@ -40,10 +40,10 @@ export function NewROPage() {
 
   return (
     <form className="mx-auto max-w-xl space-y-4" onSubmit={onSubmit}>
-      <h1 className="font-display text-4xl">New repair order</h1>
+      <h1 className="text-4xl font-extrabold text-navy">New repair order</h1>
       <label className="block text-sm">
         Customer
-        <select className="mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2" value={customerId} onChange={(event) => { setCustomerId(event.target.value); setVehicleId(""); }}>
+        <select className="mt-1 w-full rounded-lg border border-navy/10 bg-white px-3 py-2" value={customerId} onChange={(event) => { setCustomerId(event.target.value); setVehicleId(""); }}>
           {customers.map((customer) => (
             <option key={customer.id} value={customer.id}>{customer.company ?? customer.name}</option>
           ))}
@@ -51,7 +51,7 @@ export function NewROPage() {
       </label>
       <label className="block text-sm">
         Vehicle
-        <select className="mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2" value={selectedVehicle} onChange={(event) => setVehicleId(event.target.value)}>
+        <select className="mt-1 w-full rounded-lg border border-navy/10 bg-white px-3 py-2" value={selectedVehicle} onChange={(event) => setVehicleId(event.target.value)}>
           {owned.map((vehicle) => (
             <option key={vehicle.id} value={vehicle.id}>{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)} · {vehicle.plate}</option>
           ))}
@@ -59,13 +59,13 @@ export function NewROPage() {
       </label>
       <label className="block text-sm">
         Concern
-        <textarea className="mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2" rows={4} value={concern} onChange={(event) => setConcern(event.target.value)} required placeholder="Why is it here?" />
+        <textarea className="mt-1 w-full rounded-lg border border-navy/10 bg-white px-3 py-2" rows={4} value={concern} onChange={(event) => setConcern(event.target.value)} required placeholder="Why is it here?" />
       </label>
       <label className="block text-sm">
         Promise time
-        <input className="mt-1 w-full rounded-lg border border-white/10 bg-ink-800 px-3 py-2" type="datetime-local" value={promise} onChange={(event) => setPromise(event.target.value)} />
+        <input className="mt-1 w-full rounded-lg border border-navy/10 bg-white px-3 py-2" type="datetime-local" value={promise} onChange={(event) => setPromise(event.target.value)} />
       </label>
-      <button className="rounded-xl bg-gold px-4 py-3 font-semibold text-ink" type="submit">Create RO</button>
+      <button className="rounded-xl bg-goose px-4 py-3 font-semibold text-white" type="submit">Create RO</button>
     </form>
   );
 }
