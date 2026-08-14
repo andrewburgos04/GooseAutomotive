@@ -1,24 +1,37 @@
-# Goose Automotive
+# Goose Shop
 
-Marketing site for Goose Automotive, the family-owned Texas auto repair network founded by Gustavo “Goose” Macharro.
+Internal shop-management app for Goose Automotive — a Tekmetric-style workflow for advisors and technicians across Goose’s Texas locations.
 
-## Pages
+The public marketing site still lives in `website/`. This app is what the shop floor uses.
 
-- `index.html` — home
-- `services.html` — maintenance and repair
-- `locations.html` — nine Texas shops
-- `appointments.html` — appointment request
-- `fleet.html` — commercial and GSA fleet intake
-- `about.html` — story, warranty, FAQs
+## What it covers
 
-## Run locally
+- Job board (Estimates / Work in progress / Completed)
+- Tech board with labor assignment, clocks, and efficiency
+- Repair orders with canned jobs, parts, and WIP notes
+- Goose 32-point digital vehicle inspection (green / yellow / red)
+- Customer estimate approval link
+- Multi-location switcher and demo staff (Bandera, West Avenue, Colorado)
 
-Serve the project root with any static file server:
+Data is stored in the browser (`localStorage`) so you can click through a full RO without a backend. Use **Reset demo** in the sidebar to restore seed tickets.
+
+## Run
 
 ```bash
-python3 -m http.server 4173
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:4173`.
+Open `http://localhost:4173`. Sign in as Andi Garcia (advisor) or Marco Reyes (technician) at Bandera Road.
 
-No build step or dependencies are required.
+```bash
+npm run build
+```
+
+## Suggested walkthrough
+
+1. Sign in as **Andi Garcia**.
+2. Open **GO-4822** (Honda CR-V, grinding brakes).
+3. Send the estimate, then open **customer approval** and authorize the front brakes.
+4. Sign out and sign in as **Marco Reyes**.
+5. Clock into the authorized brake job, or finish the Camry DVI on **GO-4821**.
