@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: Inter, system-ui, sans-serif;
+  color: #17224d;
+  background: #edf1fc;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: Inter, system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #343399;
+  border-radius: 99px;
+}
+
+@media print {
+  .print\\:hidden {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}

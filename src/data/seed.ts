@@ -1,0 +1,451 @@
+import type {
+  Customer,
+  InspectionItem,
+  LocationId,
+  Rating,
+  RepairOrder,
+  ShopLocation,
+  User,
+  Vehicle,
+} from "../types";
+
+export const STORE_VERSION = 4;
+
+export const SHOP_RATE = 145;
+
+export const locations: ShopLocation[] = [
+  { id: "bandera", name: "Bandera Road", address: "1262 Bandera Rd", city: "San Antonio, TX 78228", phone: "210-432-4000" },
+  { id: "west-ave", name: "West Avenue", address: "12323 West Ave", city: "San Antonio, TX 78216", phone: "210-340-1510", specialty: "European" },
+  { id: "colorado", name: "Colorado Street", address: "1422 N Colorado St", city: "San Antonio, TX 78207", phone: "210-520-0608", specialty: "European" },
+  { id: "rigsby", name: "Rigsby Ave", address: "4602 Rigsby Ave", city: "San Antonio, TX 78222", phone: "210-985-1010" },
+  { id: "rubens", name: "Ruben’s Auto Repair", address: "7210 Polar Bear", city: "San Antonio, TX 78238", phone: "210-647-1148" },
+  { id: "hill-country", name: "Hill Country Village", address: "13827 San Pedro Ave", city: "Hill Country Village, TX 78232", phone: "210-490-0086" },
+  { id: "universal-city", name: "Universal City", address: "829 Pat Booker Rd", city: "Universal City, TX 78148", phone: "210-658-9600", specialty: "European" },
+  { id: "castroville", name: "Castroville", address: "321 US Highway 90 E", city: "Castroville, TX 78009", phone: "830-521-2000" },
+  { id: "missouri-city", name: "Missouri City", address: "3815 Lexington Blvd", city: "Missouri City, TX 77459", phone: "281-499-0441" },
+];
+
+export const users: User[] = [
+  { id: "u-eileen", name: "Eileen Garcia", role: "manager", locationId: "bandera", title: "Service Manager", pin: "1001", email: "eileen@gooseautomotive.com" },
+  { id: "u-andi", name: "Andi Garcia", role: "advisor", locationId: "bandera", title: "Service Advisor", pin: "1002", email: "andi@gooseautomotive.com" },
+  { id: "u-marco", name: "Marco Reyes", role: "tech", locationId: "bandera", title: "A-Tech", pin: "2001", email: "marco@gooseautomotive.com" },
+  { id: "u-luis", name: "Luis Ortega", role: "tech", locationId: "bandera", title: "B-Tech", pin: "2002", email: "luis@gooseautomotive.com" },
+  { id: "u-sofia", name: "Sofia Nguyen", role: "tech", locationId: "bandera", title: "Lube Tech", pin: "2003", email: "sofia@gooseautomotive.com" },
+  { id: "u-amber", name: "Amber Guerrero", role: "manager", locationId: "west-ave", title: "Service Manager", pin: "1101", email: "amber@gooseautomotive.com" },
+  { id: "u-arturo", name: "Arturo Farias", role: "advisor", locationId: "west-ave", title: "Service Advisor", pin: "1102", email: "arturo@gooseautomotive.com" },
+  { id: "u-diego", name: "Diego Santos", role: "tech", locationId: "west-ave", title: "Euro Tech", pin: "2101", email: "diego@gooseautomotive.com" },
+  { id: "u-robert", name: "Robert Gomez", role: "manager", locationId: "colorado", title: "Service Manager", pin: "1201", email: "robert@gooseautomotive.com" },
+  { id: "u-marissa", name: "Marissa Muñoz", role: "advisor", locationId: "colorado", title: "Assistant Service Manager", pin: "1202", email: "marissa@gooseautomotive.com" },
+];
+
+export const customers: Customer[] = [
+  { id: "c-maria", name: "Maria Delgado", phone: "210-555-0142", email: "maria.delgado@email.com" },
+  { id: "c-james", name: "James Whitaker", phone: "210-555-0198", email: "jwhitaker@email.com" },
+  { id: "c-fleet", name: "Chris Molina", phone: "210-555-0170", email: "fleet@hcplumbing.com", fleet: true, company: "Hill Country Plumbing", fleetAccountId: "fa-hcp" },
+  { id: "c-priya", name: "Priya Shah", phone: "210-555-0114", email: "priya.shah@email.com" },
+  { id: "c-tom", name: "Tom Alvarez", phone: "210-555-0166", email: "talvarez@email.com" },
+  { id: "c-renee", name: "Renee Brooks", phone: "830-555-0133", email: "rbrooks@email.com" },
+  { id: "c-owen", name: "Owen Patel", phone: "210-555-0188", email: "owen.patel@email.com" },
+];
+
+export const vehicles: Vehicle[] = [
+  { id: "v-camry", customerId: "c-maria", year: 2018, make: "Toyota", model: "Camry", vin: "4T1B11HK5JU123456", plate: "THX 204", mileage: 86420, color: "Silver" },
+  { id: "v-crv", customerId: "c-james", year: 2021, make: "Honda", model: "CR-V", vin: "7FARW2H89ME234567", plate: "KLM 881", mileage: 41210, color: "White" },
+  { id: "v-f150", customerId: "c-fleet", year: 2019, make: "Ford", model: "F-150", vin: "1FTEW1E53KK345678", plate: "HCP 14", mileage: 118900, color: "Oxford White", unitNumber: "HCP-14" },
+  { id: "v-bmw", customerId: "c-priya", year: 2016, make: "BMW", model: "328i", vin: "WBA8E9G51GNT45678", plate: "PRY 328", mileage: 79200, color: "Black" },
+  { id: "v-tacoma", customerId: "c-tom", year: 2020, make: "Toyota", model: "Tacoma", vin: "3TMCZ5AN5LM567890", plate: "TCO 90", mileage: 53880, color: "Army Green" },
+  { id: "v-accord", customerId: "c-renee", year: 2017, make: "Honda", model: "Accord", vin: "1HGCR2F84HA678901", plate: "RNB 17", mileage: 101440, color: "Blue" },
+  { id: "v-rav4", customerId: "c-owen", year: 2022, make: "Toyota", model: "RAV4", vin: "2T3P1RFV5NW789012", plate: "OWP 22", mileage: 22150, color: "Gray" },
+];
+
+const POINTS: { category: string; name: string }[] = [
+  { category: "Underhood", name: "Engine oil level / condition" },
+  { category: "Underhood", name: "Coolant" },
+  { category: "Underhood", name: "Brake fluid" },
+  { category: "Underhood", name: "Power steering fluid" },
+  { category: "Underhood", name: "Transmission fluid" },
+  { category: "Underhood", name: "Battery & cables" },
+  { category: "Underhood", name: "Belts" },
+  { category: "Underhood", name: "Hoses" },
+  { category: "Underhood", name: "Engine air filter" },
+  { category: "Underhood", name: "Cabin filter" },
+  { category: "Underhood", name: "Visible engine leaks" },
+  { category: "Underhood", name: "Battery charging output" },
+  { category: "Tires", name: "Left front tire" },
+  { category: "Tires", name: "Right front tire" },
+  { category: "Tires", name: "Left rear tire" },
+  { category: "Tires", name: "Right rear tire" },
+  { category: "Brakes", name: "Front brake pads / rotors" },
+  { category: "Brakes", name: "Rear brake pads / rotors" },
+  { category: "Brakes", name: "Brake hoses & lines" },
+  { category: "Ride", name: "Steering play" },
+  { category: "Ride", name: "Front suspension" },
+  { category: "Ride", name: "Rear suspension" },
+  { category: "Ride", name: "CV axles / boots" },
+  { category: "Ride", name: "Exhaust" },
+  { category: "Safety", name: "Headlights" },
+  { category: "Safety", name: "Tail / brake lights" },
+  { category: "Safety", name: "Wiper blades" },
+  { category: "Safety", name: "Windshield" },
+  { category: "Safety", name: "Horn" },
+  { category: "Safety", name: "Marker / reverse lights" },
+  { category: "Safety", name: "Undercarriage / rust" },
+  { category: "Safety", name: "Test drive notes" },
+];
+
+const BRAKE_PHOTO =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180"><rect fill="#111318" width="320" height="180"/><rect x="40" y="40" width="90" height="90" rx="8" fill="#3a3a3a"/><rect x="55" y="55" width="60" height="60" rx="30" fill="#6b6b6b"/><text x="150" y="88" fill="#E42030" font-size="14" font-family="Arial">FRONT PADS</text><text x="150" y="110" fill="#fff" font-size="12" font-family="Arial">Metal-to-metal</text></svg>`,
+  );
+
+export function makeInspectionItems(overrides: Record<string, { rating: Rating; notes?: string; photos?: string[] }> = {}): InspectionItem[] {
+  return POINTS.map((point, index) => {
+    const extra = overrides[point.name];
+    return {
+      id: `insp-${index + 1}`,
+      category: point.category,
+      name: point.name,
+      rating: extra?.rating ?? null,
+      notes: extra?.notes ?? "",
+      photos: extra?.photos ?? [],
+    };
+  });
+}
+
+function hoursAgo(hours: number) {
+  return new Date(Date.now() - hours * 3600 * 1000).toISOString();
+}
+
+function laterToday(hoursFromNow: number) {
+  return new Date(Date.now() + hoursFromNow * 3600 * 1000).toISOString();
+}
+
+function inspection(roId: string, techId: string | null, overrides: Record<string, { rating: Rating; notes?: string; photos?: string[] }> = {}, completed = false): RepairOrder["inspection"] {
+  const items = makeInspectionItems(overrides);
+  const started = Object.keys(overrides).length > 0;
+  return {
+    roId,
+    techId,
+    startedAt: started ? hoursAgo(1.2) : null,
+    completedAt: completed ? hoursAgo(0.4) : null,
+    items,
+  };
+}
+
+type RawRO = Omit<RepairOrder, "labels" | "signature" | "paidAmount"> &
+  Partial<Pick<RepairOrder, "labels" | "signature" | "paidAmount">>;
+
+const rawRepairOrders: RawRO[] = [
+  {
+    id: "ro-4821",
+    number: "GO-4821",
+    locationId: "bandera",
+    customerId: "c-maria",
+    vehicleId: "v-camry",
+    advisorId: "u-andi",
+    status: "inspecting",
+    concern: "Check engine light on. Due for oil. Occasional hesitation on takeoff.",
+    promiseTime: laterToday(3),
+    createdAt: hoursAgo(2),
+    estimateSentAt: null,
+    authorizedAt: null,
+    authMethod: null,
+    jobs: [
+      {
+        id: "j-oil-4821",
+        title: "Synthetic oil change & filter",
+        concern: "Maintenance",
+        authorized: null,
+        labor: [{ id: "l-oil-4821", description: "Oil & filter service", hours: 0.5, rate: SHOP_RATE, techId: "u-sofia", clockStartedAt: null, billedSeconds: 0 }],
+        parts: [
+          { id: "p-oil-4821", name: "5W-30 synthetic (5 qt)", qty: 1, cost: 22, price: 48, status: "in_stock" },
+          { id: "p-filter-4821", name: "Toyota oil filter", qty: 1, cost: 6, price: 18, status: "in_stock" },
+        ],
+      },
+    ],
+    inspection: inspection("ro-4821", "u-marco", {
+      "Engine oil level / condition": { rating: "recommend", notes: "Dark, 1 qt low. Due now." },
+      "Engine air filter": { rating: "ok", notes: "Clean." },
+      "Battery & cables": { rating: "ok" },
+    }),
+    notes: [{ id: "n1", at: hoursAgo(1.8), userId: "u-andi", body: "Customer waiting in lobby. Wants to know about the light before she leaves for work." }],
+  },
+  {
+    id: "ro-4822",
+    number: "GO-4822",
+    locationId: "bandera",
+    customerId: "c-james",
+    vehicleId: "v-crv",
+    advisorId: "u-andi",
+    status: "requires_auth",
+    concern: "Grinding in the front when braking. Also asked for a 32-point.",
+    promiseTime: laterToday(5),
+    createdAt: hoursAgo(4),
+    estimateSentAt: null,
+    authorizedAt: null,
+    authMethod: null,
+    jobs: [
+      {
+        id: "j-brakes-f",
+        title: "Front brake pads & rotors",
+        concern: "Safety — grinding",
+        authorized: null,
+        labor: [{ id: "l-brakes-f", description: "R&R front pads and rotors", hours: 1.8, rate: SHOP_RATE, techId: "u-marco", clockStartedAt: null, billedSeconds: 0 }],
+        parts: [
+          { id: "p-pads-f", name: "Front ceramic pads", qty: 1, cost: 38, price: 96, status: "in_stock" },
+          { id: "p-rotors-f", name: "Front rotors (pair)", qty: 1, cost: 72, price: 178, status: "in_stock" },
+        ],
+      },
+      {
+        id: "j-brakes-r",
+        title: "Rear brake pads (recommended)",
+        concern: "6 mm remaining",
+        authorized: null,
+        labor: [{ id: "l-brakes-r", description: "R&R rear pads", hours: 1.2, rate: SHOP_RATE, techId: null, clockStartedAt: null, billedSeconds: 0 }],
+        parts: [{ id: "p-pads-r", name: "Rear ceramic pads", qty: 1, cost: 32, price: 84, status: "needed" }],
+      },
+      {
+        id: "j-align",
+        title: "Four-wheel alignment",
+        concern: "After brake work / inner shoulder wear LF",
+        authorized: null,
+        labor: [{ id: "l-align", description: "Alignment", hours: 1.0, rate: SHOP_RATE, techId: null, clockStartedAt: null, billedSeconds: 0 }],
+        parts: [],
+      },
+    ],
+    inspection: inspection(
+      "ro-4822",
+      "u-marco",
+      {
+        "Front brake pads / rotors": { rating: "urgent", notes: "Pads metal-to-metal. Rotors scored. Do not drive like this.", photos: [BRAKE_PHOTO] },
+        "Rear brake pads / rotors": { rating: "recommend", notes: "6 mm. Plan within 3–5k." },
+        "Left front tire": { rating: "recommend", notes: "Inner shoulder 4/32. Alignment after brakes." },
+        "Right front tire": { rating: "ok", notes: "7/32" },
+        "Left rear tire": { rating: "ok", notes: "8/32" },
+        "Right rear tire": { rating: "ok", notes: "8/32" },
+        "Engine oil level / condition": { rating: "ok" },
+        "Coolant": { rating: "ok" },
+        "Brake fluid": { rating: "recommend", notes: "Dark. Flush with brake job." },
+        "Battery & cables": { rating: "ok" },
+        "Belts": { rating: "ok" },
+        "Hoses": { rating: "ok" },
+        "Engine air filter": { rating: "ok" },
+        "Cabin filter": { rating: "recommend", notes: "Dusty." },
+        "Visible engine leaks": { rating: "ok" },
+        "Battery charging output": { rating: "ok" },
+        "Brake hoses & lines": { rating: "ok" },
+        "Steering play": { rating: "ok" },
+        "Front suspension": { rating: "ok" },
+        "Rear suspension": { rating: "ok" },
+        "CV axles / boots": { rating: "ok" },
+        "Exhaust": { rating: "ok" },
+        "Headlights": { rating: "ok" },
+        "Tail / brake lights": { rating: "ok" },
+        "Wiper blades": { rating: "recommend", notes: "Streaking passenger side." },
+        "Windshield": { rating: "ok" },
+        "Horn": { rating: "ok" },
+        "Marker / reverse lights": { rating: "ok" },
+        "Undercarriage / rust": { rating: "ok" },
+        "Test drive notes": { rating: "urgent", notes: "Confirmed grind at 15 mph. Pedal pulses slightly." },
+        "Power steering fluid": { rating: "ok" },
+        "Transmission fluid": { rating: "ok" },
+      },
+      true,
+    ),
+    notes: [{ id: "n2", at: hoursAgo(0.5), userId: "u-marco", body: "Inspection complete. Front brakes are a no-drive. Estimate is on the RO." }],
+  },
+  {
+    id: "ro-4823",
+    number: "GO-4823",
+    locationId: "bandera",
+    customerId: "c-fleet",
+    vehicleId: "v-f150",
+    advisorId: "u-andi",
+    status: "in_progress",
+    concern: "Fleet A-service. Driver reported a slight pull to the right.",
+    promiseTime: laterToday(2),
+    createdAt: hoursAgo(5),
+    estimateSentAt: hoursAgo(4.2),
+    authorizedAt: hoursAgo(4),
+    authMethod: "phone",
+    jobs: [
+      {
+        id: "j-fleet-pm",
+        title: "Fleet A-service (oil, filters, lube)",
+        concern: "Scheduled PM",
+        authorized: true,
+        labor: [{ id: "l-fleet-pm", description: "A-service", hours: 1.2, rate: SHOP_RATE, techId: "u-sofia", clockStartedAt: hoursAgo(0.3), billedSeconds: 0 }],
+        parts: [
+          { id: "p-f150-oil", name: "5W-30 synthetic (6 qt)", qty: 1, cost: 28, price: 62, status: "in_stock" },
+          { id: "p-f150-filter", name: "Motorcraft oil filter", qty: 1, cost: 7, price: 19, status: "in_stock" },
+        ],
+      },
+      {
+        id: "j-fleet-align",
+        title: "Alignment",
+        concern: "Pull right",
+        authorized: true,
+        labor: [{ id: "l-fleet-align", description: "Alignment", hours: 1.0, rate: SHOP_RATE, techId: "u-luis", clockStartedAt: null, billedSeconds: 0 }],
+        parts: [],
+      },
+    ],
+    inspection: inspection(
+      "ro-4823",
+      "u-sofia",
+      {
+        "Engine oil level / condition": { rating: "recommend", notes: "Due." },
+        "Left front tire": { rating: "ok", notes: "7/32" },
+        "Front brake pads / rotors": { rating: "ok", notes: "8 mm" },
+        "Rear brake pads / rotors": { rating: "ok" },
+      },
+      true,
+    ),
+    notes: [{ id: "n3", at: hoursAgo(4), userId: "u-andi", body: "Chris authorized PM + alignment by phone. Fleet account — bill company." }],
+  },
+  {
+    id: "ro-4824",
+    number: "GO-4824",
+    locationId: "bandera",
+    customerId: "c-priya",
+    vehicleId: "v-bmw",
+    advisorId: "u-andi",
+    status: "waiting_parts",
+    concern: "Oil service and a clunk over speed bumps. Possible control arm.",
+    promiseTime: laterToday(8),
+    createdAt: hoursAgo(7),
+    estimateSentAt: hoursAgo(6),
+    authorizedAt: hoursAgo(5.5),
+    authMethod: "text",
+    jobs: [
+      {
+        id: "j-bmw-oil",
+        title: "BMW oil service",
+        concern: "Maintenance",
+        authorized: true,
+        labor: [{ id: "l-bmw-oil", description: "Oil service", hours: 0.8, rate: SHOP_RATE, techId: "u-luis", clockStartedAt: null, billedSeconds: 2400 }],
+        parts: [{ id: "p-bmw-oil", name: "LL-01 5W-30 (7 qt) + filter", qty: 1, cost: 48, price: 119, status: "installed" }],
+      },
+      {
+        id: "j-bmw-arm",
+        title: "Front control arm (left)",
+        concern: "Clunk",
+        authorized: true,
+        labor: [{ id: "l-bmw-arm", description: "R&R left front control arm + alignment", hours: 2.4, rate: SHOP_RATE, techId: "u-luis", clockStartedAt: null, billedSeconds: 0 }],
+        parts: [{ id: "p-bmw-arm", name: "Lemförder control arm", qty: 1, cost: 164, price: 328, status: "ordered" }],
+      },
+    ],
+    inspection: inspection("ro-4824", "u-luis", { "Front suspension": { rating: "urgent", notes: "LF control arm bushing torn. Clunk confirmed on lift." } }, true),
+    notes: [{ id: "n4", at: hoursAgo(1), userId: "u-luis", body: "Oil done. Arm ordered from NAPA — ETA 2:30. Do not QC until alignment." }],
+  },
+  {
+    id: "ro-4825",
+    number: "GO-4825",
+    locationId: "bandera",
+    customerId: "c-tom",
+    vehicleId: "v-tacoma",
+    advisorId: "u-andi",
+    status: "not_started",
+    concern: "A/C blows warm on the highway. No cabin filter change in 2 years.",
+    promiseTime: laterToday(6),
+    createdAt: hoursAgo(0.6),
+    estimateSentAt: null,
+    authorizedAt: null,
+    authMethod: null,
+    jobs: [],
+    inspection: inspection("ro-4825", null),
+    notes: [],
+  },
+  {
+    id: "ro-4826",
+    number: "GO-4826",
+    locationId: "bandera",
+    customerId: "c-renee",
+    vehicleId: "v-accord",
+    advisorId: "u-andi",
+    status: "ready",
+    concern: "Battery died in the HEB parking lot. Jump and test.",
+    promiseTime: hoursAgo(-1),
+    createdAt: hoursAgo(6),
+    estimateSentAt: hoursAgo(5.4),
+    authorizedAt: hoursAgo(5.2),
+    authMethod: "in_person",
+    jobs: [
+      {
+        id: "j-batt",
+        title: "Battery & charging test / replacement",
+        concern: "No-start",
+        authorized: true,
+        labor: [{ id: "l-batt", description: "Test and R&R battery", hours: 0.5, rate: SHOP_RATE, techId: "u-sofia", clockStartedAt: null, billedSeconds: 1320 }],
+        parts: [{ id: "p-batt", name: "Group 51R AGM battery", qty: 1, cost: 118, price: 229, status: "installed" }],
+      },
+    ],
+    inspection: inspection("ro-4826", "u-sofia", { "Battery & cables": { rating: "urgent", notes: "Failed load test. 11.8V resting." } }, true),
+    notes: [{ id: "n5", at: hoursAgo(0.8), userId: "u-sofia", body: "Battery in, charging at 14.2V. Ready for pickup." }],
+  },
+  {
+    id: "ro-4827",
+    number: "GO-4827",
+    locationId: "bandera",
+    customerId: "c-owen",
+    vehicleId: "v-rav4",
+    advisorId: "u-andi",
+    status: "posted",
+    concern: "First service. Oil and inspection.",
+    promiseTime: hoursAgo(2),
+    createdAt: hoursAgo(10),
+    estimateSentAt: hoursAgo(9),
+    authorizedAt: hoursAgo(8.8),
+    authMethod: "in_person",
+    jobs: [
+      {
+        id: "j-rav-oil",
+        title: "Factory first service",
+        concern: "Maintenance",
+        authorized: true,
+        labor: [{ id: "l-rav-oil", description: "Oil service", hours: 0.5, rate: SHOP_RATE, techId: "u-sofia", clockStartedAt: null, billedSeconds: 1500 }],
+        parts: [{ id: "p-rav-oil", name: "0W-16 + filter", qty: 1, cost: 26, price: 64, status: "installed" }],
+      },
+    ],
+    inspection: inspection("ro-4827", "u-sofia", { "Engine oil level / condition": { rating: "ok" } }, true),
+    notes: [{ id: "n6", at: hoursAgo(2.2), userId: "u-andi", body: "Posted. Customer paid card. 3yr/36k warranty on the service." }],
+  },
+  {
+    id: "ro-4901",
+    number: "GO-4901",
+    locationId: "west-ave",
+    customerId: "c-priya",
+    vehicleId: "v-bmw",
+    advisorId: "u-arturo",
+    status: "inspecting",
+    concern: "Euro specialist second opinion on a valve cover seep.",
+    promiseTime: laterToday(7),
+    createdAt: hoursAgo(1),
+    estimateSentAt: null,
+    authorizedAt: null,
+    authMethod: null,
+    jobs: [],
+    inspection: inspection("ro-4901", "u-diego"),
+    notes: [],
+  },
+];
+
+export const repairOrders: RepairOrder[] = rawRepairOrders.map((ro) => ({
+  ...ro,
+  labels: ro.labels ?? defaultLabels(ro),
+  signature: ro.signature ?? null,
+  paidAmount: ro.paidAmount ?? (ro.status === "posted" ? 64 : 0),
+}));
+
+function defaultLabels(ro: RawRO): RepairOrder["labels"] {
+  const labels: RepairOrder["labels"] = [];
+  if (ro.status === "waiting_parts") labels.push("waiting_parts");
+  if (ro.customerId === "c-fleet") labels.push("fleet");
+  if (ro.vehicleId === "v-bmw") labels.push("euro");
+  if (ro.status === "posted" || ro.status === "ready") labels.push("warranty");
+  if (ro.id === "ro-4826") labels.push("customer_waiting");
+  if (ro.id === "ro-4825") labels.push("come_back");
+  return labels;
+}
+
+export const defaultLocationId: LocationId = "bandera";

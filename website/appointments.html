@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book an Appointment | Goose Automotive</title>
+  <meta name="description" content="Request a Goose Automotive appointment at any of our Texas locations. Appointments recommended. Walk-ins welcome when the schedule allows.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="topbar">
+    <div class="wrap topbar__inner">
+      <p>Mon–Fri 7:00am–6:00pm · Closed weekends</p>
+      <p>3-year / 36,000-mile nationwide warranty</p>
+      <a href="locations.html">Find a shop</a>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header__inner">
+      <a class="logo" href="index.html">
+        <img src="assets/logo.svg" alt="">
+        <span>Goose Automotive</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="locations.html">Locations</a>
+        <a href="fleet.html">Fleet</a>
+        <a href="about.html">About</a>
+        <a class="btn btn--sm" href="appointments.html" aria-current="page">Book appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Appointments</p>
+        <h1>Tell us what you need. We’ll take it from there.</h1>
+        <p>Request a visit at the shop closest to you. A service advisor will confirm timing. For the fastest response, you can also call the location directly.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap split">
+        <div class="form-card">
+          <div id="form-success" class="form-success" tabindex="-1">
+            Thanks — we have your request. Please call the shop you selected to confirm a time. Advisors can usually lock in a bay faster over the phone.
+          </div>
+          <form id="appointment-form" novalidate>
+            <div class="form-grid">
+              <label>First and last name
+                <input name="name" type="text" autocomplete="name" required>
+              </label>
+              <label>Phone
+                <input name="phone" type="tel" autocomplete="tel" required>
+              </label>
+              <label>Email
+                <input name="email" type="email" autocomplete="email" required>
+              </label>
+              <label>Preferred location
+                <select name="location" required>
+                  <option value="">Select a shop</option>
+                  <option>Bandera Road — San Antonio</option>
+                  <option>West Avenue — San Antonio</option>
+                  <option>Colorado Street — San Antonio</option>
+                  <option>Rigsby Ave — San Antonio</option>
+                  <option>Ruben’s Auto Repair — San Antonio</option>
+                  <option>Hill Country Village</option>
+                  <option>Universal City</option>
+                  <option>Castroville</option>
+                  <option>Missouri City</option>
+                </select>
+              </label>
+              <label>Vehicle year
+                <input name="year" type="text" inputmode="numeric" placeholder="2018" required>
+              </label>
+              <label>Make and model
+                <input name="vehicle" type="text" placeholder="Toyota Camry" required>
+              </label>
+            </div>
+            <label>Service needed
+              <select name="service" required>
+                <option value="">Select a service</option>
+                <option>Oil change &amp; maintenance</option>
+                <option>Brakes</option>
+                <option>Check engine light / diagnostics</option>
+                <option>A/C &amp; heating</option>
+                <option>Alignment / tires</option>
+                <option>Battery / electrical</option>
+                <option>Engine or transmission</option>
+                <option>Fleet vehicle</option>
+                <option>Not sure — inspection</option>
+              </select>
+            </label>
+            <label>Preferred date
+              <input name="date" type="date" required>
+            </label>
+            <label>Anything we should know?
+              <textarea name="notes" placeholder="Noises, warning lights, drop-off timing…"></textarea>
+            </label>
+            <button class="btn btn--ink" type="submit">Request appointment</button>
+          </form>
+        </div>
+        <div>
+          <p class="eyebrow">What happens next</p>
+          <h2>A real person confirms the visit.</h2>
+          <p>Appointments are recommended. Walk-ins are accepted when the bays allow. Same-day service is often available for maintenance and smaller repairs.</p>
+          <div class="notice">
+            Prefer to talk now? Call the shop you want to visit from the locations page. Advisors can usually get you on the board faster over the phone.
+          </div>
+          <div class="btn-row">
+            <a class="btn btn--ghost" href="locations.html">Call a location</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <a class="logo" href="index.html">
+          <img src="assets/logo.svg" alt="">
+          <span>Goose Automotive</span>
+        </a>
+        <p>Family-owned auto repair for Texas drivers. Honest inspections, ASE-certified technicians, and a nationwide warranty.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="locations.html">Locations</a></li>
+          <li><a href="fleet.html">Fleet service</a></li>
+          <li><a href="about.html">About &amp; FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p>Monday–Friday<br>7:00am – 6:00pm</p>
+        <p>Saturday–Sunday<br>Closed</p>
+      </div>
+      <div>
+        <h3>Book</h3>
+        <p>Request a visit online or call your nearest shop.</p>
+        <p><a class="btn btn--sm" href="appointments.html">Book appointment</a></p>
+      </div>
+    </div>
+    <div class="wrap legal">
+      <p>&copy; <span data-year>2026</span> Goose Automotive. All rights reserved.</p>
+      <p>Let Goose be your wingman.</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
