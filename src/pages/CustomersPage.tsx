@@ -41,15 +41,15 @@ export function CustomersPage() {
                   {customer.company && <p className="text-sm text-muted">{customer.name}</p>}
                   <p className="text-sm text-muted">{customer.phone} · {customer.email}</p>
                 </div>
-                {customer.fleet && <span className="h-fit rounded-full bg-goose/10 px-2 py-0.5 text-xs text-goose-bright">Fleet</span>}
+                {customer.fleet && <span className="h-fit rounded-full bg-goose/10 px-2 py-0.5 text-xs font-bold text-goose">Fleet / GSA</span>}
               </div>
               <div className="mt-3 grid gap-2 md:grid-cols-2">
                 {owned.map((vehicle) => {
                   const history = ros.filter((ro) => ro.vehicleId === vehicle.id && ro.locationId === locationId);
                   return (
                     <div key={vehicle.id} className="rounded-xl bg-mist p-3 text-sm">
-                      <p className="font-semibold">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</p>
-                      <p className="text-muted">{vehicle.plate} · {vehicle.vin} · {vehicle.mileage.toLocaleString()} mi</p>
+                      <p className="font-semibold"><Link className="hover:text-goose" to={`/vehicles/${vehicle.id}`}>{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</Link></p>
+                      <p className="text-muted">{vehicle.plate} · {vehicle.vin} · {vehicle.mileage.toLocaleString()} mi{vehicle.unitNumber ? ` · Unit ${vehicle.unitNumber}` : ""}</p>
                       <div className="mt-2 flex flex-wrap gap-2">
                         {history.slice(0, 3).map((ro) => (
                           <Link key={ro.id} to={`/ro/${ro.id}`} className="rounded bg-mist px-2 py-1 text-xs">{ro.number}</Link>

@@ -32,3 +32,12 @@ h3,
   background: #343399;
   border-radius: 99px;
 }
+
+@media print {
+  .print\\:hidden {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+}

@@ -13,7 +13,8 @@ import {
 } from "../lib/format";
 import { useCurrentUser, useShop } from "../store";
 import { StatusChip } from "../components/ROCard";
-import type { AuthMethod, RoStatus } from "../types";
+import type { AuthMethod, FinanceProvider, PayMethod, RoLabel, RoStatus, VendorId } from "../types";
+import { LABEL_COPY } from "../lib/media";
 import { useEffect, useMemo, useState } from "react";
 
 const STATUSES: RoStatus[] = [
@@ -45,6 +46,11 @@ export function RepairOrderPage() {
   const assignLaborTech = useShop((s) => s.assignLaborTech);
   const addCannedJob = useShop((s) => s.addCannedJob);
   const addNote = useShop((s) => s.addNote);
+  const toggleLabel = useShop((s) => s.toggleLabel);
+  const takePayment = useShop((s) => s.takePayment);
+  const applyFinancing = useShop((s) => s.applyFinancing);
+  const orderParts = useShop((s) => s.orderParts);
+  const fleet = useShop((s) => s.fleetAccounts.find((f) => f.id === s.customers.find((c) => c.id === ro?.customerId)?.fleetAccountId));
   const [note, setNote] = useState("");
   const [method, setMethod] = useState<AuthMethod>("in_person");
   const [, setTick] = useState(0);
@@ -72,7 +78,16 @@ export function RepairOrderPage() {
             <h1 className="text-4xl font-extrabold text-navy">{vehicleTitle(vehicle.year, vehicle.make, vehicle.model)}</h1>
             <p className="text-muted">
               {customer.company ? `${customer.company} · ${customer.name}` : customer.name} · {vehicle.mileage.toLocaleString()} mi · {vehicle.plate}
+              {vehicle.unitNumber ? ` · Unit ${vehicle.unitNumber}` : ""}
             </p>
+            {fleet && <p className="mt-1 text-sm font-semibold text-navy-brand">Fleet {fleet.company} · {fleet.accountNumber}{fleet.gsa ? " · GSA" : ""} · {fleet.billingEmail}</p>}
+            <div className="mt-2 flex flex-wrap gap-1">
+              {(["waiting_parts", "customer_waiting", "come_back", "warranty", "fleet", "euro"] as RoLabel[]).map((label) => (
+                <button key={label} type="button" onClick={() => toggleLabel(ro.id, label)} className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase ${ro.labels.includes(label) ? "bg-navy text-white" : "bg-mist text-muted"}`}>
+                  {LABEL_COPY[label]}
+                </button>
+              ))}
+            </div>
           </div>
           <StatusChip status={ro.status} />
         </div>
@@ -89,6 +104,7 @@ export function RepairOrderPage() {
             <Link className="rounded-lg bg-goose px-3 py-2 text-sm font-semibold text-white" to={`/ro/${ro.id}/inspect`}>
               {user.role === "tech" ? "Perform DVI" : "Open DVI"}
             </Link>
+            <Link className="rounded-lg bg-mist px-3 py-2 text-sm font-semibold" to={`/vehicles/${vehicle.id}`}>Vehicle history</Link>
           </div>
           {counts && (
             <div className="flex flex-wrap gap-3 text-sm">
@@ -187,6 +203,30 @@ export function RepairOrderPage() {
           <p className="flex justify-between"><span>Written</span><strong>{money(totals.written)}</strong></p>
           <p className="flex justify-between text-ok"><span>Authorized</span><strong>{money(totals.authorized)}</strong></p>
           <p className="flex justify-between text-warn"><span>Recommended</span><strong>{money(totals.recommended)}</strong></p>
+          <p className="mt-2 flex justify-between text-sm"><span>Paid</span><strong>{money(ro.paidAmount)}</strong></p>
+          <p className="text-sm text-muted">Balance {money(Math.max(0, totals.authorized - ro.paidAmount))}</p>
+        </section>
+        <section className="rounded-2xl border border-navy/10 bg-white p-4">
+          <h2 className="mb-3 text-xl font-extrabold">Collect / finance / print</h2>
+          <div className="grid gap-2">
+            {(["card", "apple", "text", "cash"] as PayMethod[]).map((methodName) => (
+              <button key={methodName} className="rounded-lg bg-navy px-3 py-2 text-sm font-semibold capitalize text-white" type="button" onClick={() => takePayment(ro.id, methodName, Math.max(1, totals.authorized - ro.paidAmount), methodName === "card" ? "Visa 4242 demo" : "demo")}>
+                Pay {methodName === "text" ? "text-to-pay" : methodName}
+              </button>
+            ))}
+            {(["synchrony", "aff", "easypay"] as FinanceProvider[]).map((provider) => (
+              <button key={provider} className="rounded-lg border border-navy/15 px-3 py-2 text-sm font-semibold uppercase" type="button" onClick={() => applyFinancing(ro.id, provider, totals.written)}>
+                {provider === "aff" ? "American First" : provider === "easypay" ? "EasyPay" : "Synchrony"}
+              </button>
+            ))}
+            <button className="rounded-lg bg-mist px-3 py-2 text-sm font-semibold" type="button" onClick={() => {
+              const lines = ro.jobs.flatMap((j) => j.parts.filter((p) => p.status === "needed")).map((p) => ({ sku: p.sku ?? p.name, name: p.name, qty: p.qty, cost: p.cost }));
+              if (lines.length) orderParts(ro.id, "napa" as VendorId, lines);
+            }}>Order needed parts (NAPA)</button>
+            <Link className="rounded-lg border border-navy/15 px-3 py-2 text-center text-sm font-semibold" to={`/print/${ro.id}/inspection`}>Print DVI</Link>
+            <Link className="rounded-lg border border-navy/15 px-3 py-2 text-center text-sm font-semibold" to={`/print/${ro.id}/estimate`}>Print estimate</Link>
+            <Link className="rounded-lg border border-navy/15 px-3 py-2 text-center text-sm font-semibold" to={`/print/${ro.id}/invoice`}>Print invoice</Link>
+          </div>
         </section>
         <section className="rounded-2xl border border-navy/10 bg-white p-4">
           <h2 className="mb-3 text-xl font-extrabold">Workflow</h2>

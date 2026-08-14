@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import type { Customer, RepairOrder, User, Vehicle } from "../types";
+import { LABEL_COPY } from "../lib/media";
 import { columnFor, formatTime, inspectionCounts, money, roTotals, statusLabel, vehicleTitle } from "../lib/format";
 
 export function StatusChip({ status }: { status: RepairOrder["status"] }) {
@@ -41,6 +42,13 @@ export function ROCard({
         {vehicle ? vehicleTitle(vehicle.year, vehicle.make, vehicle.model) : "Vehicle"}
       </p>
       <p className="text-sm text-muted">{customer?.company ?? customer?.name}</p>
+      {ro.labels.length > 0 && (
+        <div className="mt-2 flex flex-wrap gap-1">
+          {ro.labels.map((label) => (
+            <span key={label} className="rounded-full bg-mist px-2 py-0.5 text-[10px] font-bold uppercase text-navy">{LABEL_COPY[label]}</span>
+          ))}
+        </div>
+      )}
       <p className="mt-2 line-clamp-2 text-xs text-muted">{ro.concern}</p>
       <div className="mt-3 flex items-center justify-between text-xs">
         <span className="text-muted">Promise {formatTime(ro.promiseTime)}</span>

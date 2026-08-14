@@ -18,7 +18,27 @@ export const cannedJobs: CannedJob[] = [
   { id: "cabin", title: "Cabin filter", hours: 0.3, parts: [{ name: "Cabin filter", qty: 1, cost: 8, price: 32 }] },
   { id: "diag", title: "Check engine diagnosis", hours: 1.0, parts: [] },
   { id: "ac", title: "A/C performance test & recharge", hours: 1.2, parts: [{ name: "Refrigerant", qty: 1, cost: 28, price: 89 }] },
+  { id: "wipers", title: "Wiper blade replacement", hours: 0.2, parts: [{ name: "Wiper blades (pair)", qty: 1, cost: 12, price: 38 }] },
+  { id: "brake-fluid", title: "Brake fluid flush", hours: 0.8, parts: [{ name: "DOT 4 fluid", qty: 1, cost: 9, price: 29 }] },
+  { id: "coolant", title: "Coolant service", hours: 1.0, parts: [{ name: "Coolant", qty: 1, cost: 18, price: 54 }] },
 ];
+
+export const FINDING_TO_CANNED: Record<string, string> = {
+  "Front brake pads / rotors": "brakes-f",
+  "Rear brake pads / rotors": "brakes-r",
+  "Engine oil level / condition": "oil",
+  "Battery & cables": "battery",
+  "Cabin filter": "cabin",
+  "Left front tire": "align",
+  "Right front tire": "align",
+  "Wiper blades": "wipers",
+  "Brake fluid": "brake-fluid",
+  "Coolant": "coolant",
+  "Battery charging output": "battery",
+  "Visible engine leaks": "diag",
+  "Test drive notes": "diag",
+  "Front suspension": "align",
+};
 
 export function cannedToJob(canned: CannedJob): Job {
   return {

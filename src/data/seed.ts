@@ -9,7 +9,7 @@ import type {
   Vehicle,
 } from "../types";
 
-export const STORE_VERSION = 2;
+export const STORE_VERSION = 4;
 
 export const SHOP_RATE = 145;
 
@@ -26,22 +26,22 @@ export const locations: ShopLocation[] = [
 ];
 
 export const users: User[] = [
-  { id: "u-eileen", name: "Eileen Garcia", role: "manager", locationId: "bandera", title: "Service Manager", pin: "1001" },
-  { id: "u-andi", name: "Andi Garcia", role: "advisor", locationId: "bandera", title: "Service Advisor", pin: "1002" },
-  { id: "u-marco", name: "Marco Reyes", role: "tech", locationId: "bandera", title: "A-Tech", pin: "2001" },
-  { id: "u-luis", name: "Luis Ortega", role: "tech", locationId: "bandera", title: "B-Tech", pin: "2002" },
-  { id: "u-sofia", name: "Sofia Nguyen", role: "tech", locationId: "bandera", title: "Lube Tech", pin: "2003" },
-  { id: "u-amber", name: "Amber Guerrero", role: "manager", locationId: "west-ave", title: "Service Manager", pin: "1101" },
-  { id: "u-arturo", name: "Arturo Farias", role: "advisor", locationId: "west-ave", title: "Service Advisor", pin: "1102" },
-  { id: "u-diego", name: "Diego Santos", role: "tech", locationId: "west-ave", title: "Euro Tech", pin: "2101" },
-  { id: "u-robert", name: "Robert Gomez", role: "manager", locationId: "colorado", title: "Service Manager", pin: "1201" },
-  { id: "u-marissa", name: "Marissa Muñoz", role: "advisor", locationId: "colorado", title: "Assistant Service Manager", pin: "1202" },
+  { id: "u-eileen", name: "Eileen Garcia", role: "manager", locationId: "bandera", title: "Service Manager", pin: "1001", email: "eileen@gooseautomotive.com" },
+  { id: "u-andi", name: "Andi Garcia", role: "advisor", locationId: "bandera", title: "Service Advisor", pin: "1002", email: "andi@gooseautomotive.com" },
+  { id: "u-marco", name: "Marco Reyes", role: "tech", locationId: "bandera", title: "A-Tech", pin: "2001", email: "marco@gooseautomotive.com" },
+  { id: "u-luis", name: "Luis Ortega", role: "tech", locationId: "bandera", title: "B-Tech", pin: "2002", email: "luis@gooseautomotive.com" },
+  { id: "u-sofia", name: "Sofia Nguyen", role: "tech", locationId: "bandera", title: "Lube Tech", pin: "2003", email: "sofia@gooseautomotive.com" },
+  { id: "u-amber", name: "Amber Guerrero", role: "manager", locationId: "west-ave", title: "Service Manager", pin: "1101", email: "amber@gooseautomotive.com" },
+  { id: "u-arturo", name: "Arturo Farias", role: "advisor", locationId: "west-ave", title: "Service Advisor", pin: "1102", email: "arturo@gooseautomotive.com" },
+  { id: "u-diego", name: "Diego Santos", role: "tech", locationId: "west-ave", title: "Euro Tech", pin: "2101", email: "diego@gooseautomotive.com" },
+  { id: "u-robert", name: "Robert Gomez", role: "manager", locationId: "colorado", title: "Service Manager", pin: "1201", email: "robert@gooseautomotive.com" },
+  { id: "u-marissa", name: "Marissa Muñoz", role: "advisor", locationId: "colorado", title: "Assistant Service Manager", pin: "1202", email: "marissa@gooseautomotive.com" },
 ];
 
 export const customers: Customer[] = [
   { id: "c-maria", name: "Maria Delgado", phone: "210-555-0142", email: "maria.delgado@email.com" },
   { id: "c-james", name: "James Whitaker", phone: "210-555-0198", email: "jwhitaker@email.com" },
-  { id: "c-fleet", name: "Chris Molina", phone: "210-555-0170", email: "fleet@hcplumbing.com", fleet: true, company: "Hill Country Plumbing" },
+  { id: "c-fleet", name: "Chris Molina", phone: "210-555-0170", email: "fleet@hcplumbing.com", fleet: true, company: "Hill Country Plumbing", fleetAccountId: "fa-hcp" },
   { id: "c-priya", name: "Priya Shah", phone: "210-555-0114", email: "priya.shah@email.com" },
   { id: "c-tom", name: "Tom Alvarez", phone: "210-555-0166", email: "talvarez@email.com" },
   { id: "c-renee", name: "Renee Brooks", phone: "830-555-0133", email: "rbrooks@email.com" },
@@ -51,7 +51,7 @@ export const customers: Customer[] = [
 export const vehicles: Vehicle[] = [
   { id: "v-camry", customerId: "c-maria", year: 2018, make: "Toyota", model: "Camry", vin: "4T1B11HK5JU123456", plate: "THX 204", mileage: 86420, color: "Silver" },
   { id: "v-crv", customerId: "c-james", year: 2021, make: "Honda", model: "CR-V", vin: "7FARW2H89ME234567", plate: "KLM 881", mileage: 41210, color: "White" },
-  { id: "v-f150", customerId: "c-fleet", year: 2019, make: "Ford", model: "F-150", vin: "1FTEW1E53KK345678", plate: "HCP 14", mileage: 118900, color: "Oxford White" },
+  { id: "v-f150", customerId: "c-fleet", year: 2019, make: "Ford", model: "F-150", vin: "1FTEW1E53KK345678", plate: "HCP 14", mileage: 118900, color: "Oxford White", unitNumber: "HCP-14" },
   { id: "v-bmw", customerId: "c-priya", year: 2016, make: "BMW", model: "328i", vin: "WBA8E9G51GNT45678", plate: "PRY 328", mileage: 79200, color: "Black" },
   { id: "v-tacoma", customerId: "c-tom", year: 2020, make: "Toyota", model: "Tacoma", vin: "3TMCZ5AN5LM567890", plate: "TCO 90", mileage: 53880, color: "Army Green" },
   { id: "v-accord", customerId: "c-renee", year: 2017, make: "Honda", model: "Accord", vin: "1HGCR2F84HA678901", plate: "RNB 17", mileage: 101440, color: "Blue" },
@@ -93,7 +93,13 @@ const POINTS: { category: string; name: string }[] = [
   { category: "Safety", name: "Test drive notes" },
 ];
 
-export function makeInspectionItems(overrides: Record<string, { rating: Rating; notes?: string }> = {}): InspectionItem[] {
+const BRAKE_PHOTO =
+  "data:image/svg+xml," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180"><rect fill="#111318" width="320" height="180"/><rect x="40" y="40" width="90" height="90" rx="8" fill="#3a3a3a"/><rect x="55" y="55" width="60" height="60" rx="30" fill="#6b6b6b"/><text x="150" y="88" fill="#E42030" font-size="14" font-family="Arial">FRONT PADS</text><text x="150" y="110" fill="#fff" font-size="12" font-family="Arial">Metal-to-metal</text></svg>`,
+  );
+
+export function makeInspectionItems(overrides: Record<string, { rating: Rating; notes?: string; photos?: string[] }> = {}): InspectionItem[] {
   return POINTS.map((point, index) => {
     const extra = overrides[point.name];
     return {
@@ -102,6 +108,7 @@ export function makeInspectionItems(overrides: Record<string, { rating: Rating; 
       name: point.name,
       rating: extra?.rating ?? null,
       notes: extra?.notes ?? "",
+      photos: extra?.photos ?? [],
     };
   });
 }
@@ -114,7 +121,7 @@ function laterToday(hoursFromNow: number) {
   return new Date(Date.now() + hoursFromNow * 3600 * 1000).toISOString();
 }
 
-function inspection(roId: string, techId: string | null, overrides: Record<string, { rating: Rating; notes?: string }> = {}, completed = false): RepairOrder["inspection"] {
+function inspection(roId: string, techId: string | null, overrides: Record<string, { rating: Rating; notes?: string; photos?: string[] }> = {}, completed = false): RepairOrder["inspection"] {
   const items = makeInspectionItems(overrides);
   const started = Object.keys(overrides).length > 0;
   return {
@@ -126,7 +133,10 @@ function inspection(roId: string, techId: string | null, overrides: Record<strin
   };
 }
 
-export const repairOrders: RepairOrder[] = [
+type RawRO = Omit<RepairOrder, "labels" | "signature" | "paidAmount"> &
+  Partial<Pick<RepairOrder, "labels" | "signature" | "paidAmount">>;
+
+const rawRepairOrders: RawRO[] = [
   {
     id: "ro-4821",
     number: "GO-4821",
@@ -208,7 +218,7 @@ export const repairOrders: RepairOrder[] = [
       "ro-4822",
       "u-marco",
       {
-        "Front brake pads / rotors": { rating: "urgent", notes: "Pads metal-to-metal. Rotors scored. Do not drive like this." },
+        "Front brake pads / rotors": { rating: "urgent", notes: "Pads metal-to-metal. Rotors scored. Do not drive like this.", photos: [BRAKE_PHOTO] },
         "Rear brake pads / rotors": { rating: "recommend", notes: "6 mm. Plan within 3–5k." },
         "Left front tire": { rating: "recommend", notes: "Inner shoulder 4/32. Alignment after brakes." },
         "Right front tire": { rating: "ok", notes: "7/32" },
@@ -419,5 +429,23 @@ export const repairOrders: RepairOrder[] = [
     notes: [],
   },
 ];
+
+export const repairOrders: RepairOrder[] = rawRepairOrders.map((ro) => ({
+  ...ro,
+  labels: ro.labels ?? defaultLabels(ro),
+  signature: ro.signature ?? null,
+  paidAmount: ro.paidAmount ?? (ro.status === "posted" ? 64 : 0),
+}));
+
+function defaultLabels(ro: RawRO): RepairOrder["labels"] {
+  const labels: RepairOrder["labels"] = [];
+  if (ro.status === "waiting_parts") labels.push("waiting_parts");
+  if (ro.customerId === "c-fleet") labels.push("fleet");
+  if (ro.vehicleId === "v-bmw") labels.push("euro");
+  if (ro.status === "posted" || ro.status === "ready") labels.push("warranty");
+  if (ro.id === "ro-4826") labels.push("customer_waiting");
+  if (ro.id === "ro-4825") labels.push("come_back");
+  return labels;
+}
 
 export const defaultLocationId: LocationId = "bandera";

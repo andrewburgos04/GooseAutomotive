@@ -4,3 +4,5 @@ node_modules
 dist
 *.local
 .vite
+data/shop.json
+data/integrations.jsonl

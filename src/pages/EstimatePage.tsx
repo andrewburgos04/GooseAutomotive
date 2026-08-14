@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { inspectionCounts, jobTotal, money, vehicleTitle } from "../lib/format";
 import { useShop } from "../store";
@@ -11,8 +11,12 @@ export function EstimatePage() {
   const location = useShop((s) => s.locations.find((l) => l.id === ro?.locationId));
   const authorizeJobs = useShop((s) => s.authorizeJobs);
   const declineJob = useShop((s) => s.declineJob);
+  const saveSignature = useShop((s) => s.saveSignature);
   const [selected, setSelected] = useState<string[]>([]);
   const [done, setDone] = useState(false);
+  const [name, setName] = useState("");
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const drawing = useRef(false);
 
   const findings = useMemo(
     () => ro?.inspection.items.filter((item) => item.rating === "urgent" || item.rating === "recommend") ?? [],
@@ -53,6 +57,11 @@ export function EstimatePage() {
                 </span>
                 {item.name}
                 {item.notes ? <span className="block text-sm text-muted">{item.notes}</span> : null}
+                {item.photos?.length > 0 && (
+                  <div className="mt-2 flex gap-2">
+                    {item.photos.map((src, i) => <img key={i} src={src} alt="" className="h-24 rounded-lg object-cover" />)}
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -85,21 +94,50 @@ export function EstimatePage() {
                   </label>
                 ))}
               </div>
+              <div className="mt-4 space-y-3">
+                <p className="text-sm font-semibold">Digital signature</p>
+                <input className="w-full rounded-lg border border-navy/10 px-3 py-2" placeholder="Full name" value={name} onChange={(e) => setName(e.target.value)} />
+                <canvas
+                  ref={canvasRef}
+                  width={520}
+                  height={140}
+                  className="w-full rounded-xl border border-navy/15 bg-white"
+                  onPointerDown={(e) => {
+                    drawing.current = true;
+                    const ctx = canvasRef.current?.getContext("2d");
+                    const rect = canvasRef.current?.getBoundingClientRect();
+                    if (!ctx || !rect) return;
+                    ctx.beginPath();
+                    ctx.moveTo((e.clientX - rect.left) * (520 / rect.width), (e.clientY - rect.top) * (140 / rect.height));
+                  }}
+                  onPointerMove={(e) => {
+                    if (!drawing.current) return;
+                    const ctx = canvasRef.current?.getContext("2d");
+                    const rect = canvasRef.current?.getBoundingClientRect();
+                    if (!ctx || !rect) return;
+                    ctx.lineWidth = 2;
+                    ctx.lineTo((e.clientX - rect.left) * (520 / rect.width), (e.clientY - rect.top) * (140 / rect.height));
+                    ctx.stroke();
+                  }}
+                  onPointerUp={() => { drawing.current = false; }}
+                />
+              </div>
               <div className="mt-4 flex items-center justify-between">
                 <p className="text-lg font-semibold">Selected {money(total)}</p>
                 <button
                   className="rounded-full bg-goose px-5 py-3 font-bold text-white disabled:opacity-40"
                   type="button"
-                  disabled={selected.length === 0}
+                  disabled={selected.length === 0 || !name.trim()}
                   onClick={() => {
                     ro.jobs.forEach((job) => {
                       if (!selected.includes(job.id)) declineJob(ro.id, job.id);
                     });
                     authorizeJobs(ro.id, selected, "text");
+                    saveSignature(ro.id, { name: name.trim(), dataUrl: canvasRef.current?.toDataURL() ?? "", at: new Date().toISOString() });
                     setDone(true);
                   }}
                 >
-                  Approve selected
+                  Approve & sign
                 </button>
               </div>
             </>

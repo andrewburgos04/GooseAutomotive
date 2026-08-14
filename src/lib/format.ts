@@ -1,4 +1,4 @@
-import type { BoardColumn, Job, RepairOrder, RoStatus } from "../types";
+import type { BoardColumn, ClockKind, Job, RepairOrder, RoStatus } from "../types";
 
 export const LABOR_RATE = 145;
 
@@ -89,4 +89,19 @@ export function inspectionCounts(ro: RepairOrder) {
 
 export function uid(prefix: string) {
   return `${prefix}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+export function punchSeconds(punches: { kind: ClockKind; at: string }[], now = Date.now()) {
+  const sorted = [...punches].sort((a, b) => a.at.localeCompare(b.at));
+  let total = 0;
+  let start: number | null = null;
+  for (const punch of sorted) {
+    if (punch.kind === "in" || punch.kind === "break_end") start = new Date(punch.at).getTime();
+    if ((punch.kind === "out" || punch.kind === "break_start") && start) {
+      total += new Date(punch.at).getTime() - start;
+      start = null;
+    }
+  }
+  if (start) total += now - start;
+  return Math.floor(total / 1000);
 }
