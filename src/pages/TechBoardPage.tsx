@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { clockedSeconds, formatDuration, hoursFromSeconds, money, vehicleTitle } from "../lib/format";
 import { useCurrentUser, useShop } from "../store";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export function TechBoardPage() {
   const locationId = useShop((s) => s.currentLocationId);
-  const users = useShop((s) => s.users.filter((u) => u.locationId === locationId && u.role === "tech"));
-  const ros = useShop((s) => s.repairOrders.filter((ro) => ro.locationId === locationId));
+  const allUsers = useShop((s) => s.users);
+  const repairOrders = useShop((s) => s.repairOrders);
   const vehicles = useShop((s) => s.vehicles);
   const me = useCurrentUser();
   const [, setTick] = useState(0);
@@ -15,6 +15,15 @@ export function TechBoardPage() {
     const id = window.setInterval(() => setTick((n) => n + 1), 1000);
     return () => window.clearInterval(id);
   }, []);
+
+  const users = useMemo(
+    () => allUsers.filter((u) => u.locationId === locationId && u.role === "tech"),
+    [allUsers, locationId],
+  );
+  const ros = useMemo(
+    () => repairOrders.filter((ro) => ro.locationId === locationId),
+    [repairOrders, locationId],
+  );
 
   const techs = me?.role === "tech" ? users.filter((u) => u.id === me.id) : users;
 

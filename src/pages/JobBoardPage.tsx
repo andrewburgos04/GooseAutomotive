@@ -12,11 +12,16 @@ const COLUMNS: { id: BoardColumn; title: string }[] = [
 
 export function JobBoardPage() {
   const locationId = useShop((s) => s.currentLocationId);
-  const ros = useShop((s) => s.repairOrders.filter((ro) => ro.locationId === locationId));
+  const repairOrders = useShop((s) => s.repairOrders);
   const customers = useShop((s) => s.customers);
   const vehicles = useShop((s) => s.vehicles);
   const users = useShop((s) => s.users);
-  const location = useShop((s) => s.locations.find((l) => l.id === locationId));
+  const locations = useShop((s) => s.locations);
+  const location = locations.find((l) => l.id === locationId);
+  const ros = useMemo(
+    () => repairOrders.filter((ro) => ro.locationId === locationId),
+    [repairOrders, locationId],
+  );
 
   const grouped = useMemo(() => {
     const map: Record<BoardColumn, typeof ros> = { estimates: [], wip: [], completed: [] };
