@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { Connect, Plugin } from "vite";
+import { users as seedUsers } from "./src/data/seed";
 
 const DATA_DIR = path.resolve("data");
 const STATE_FILE = path.join(DATA_DIR, "shop.json");
@@ -46,7 +47,7 @@ function send(res: Connect.ServerResponse, status: number, body: unknown) {
 function usersFromDisk(): Array<{ id: string; pin: string; name: string; role: string }> {
   const file = loadStateFile();
   const blob = file["goose-shop"] as { state?: { users?: Array<{ id: string; pin: string; name: string; role: string }> } } | undefined;
-  return blob?.state?.users ?? [];
+  return blob?.state?.users ?? seedUsers;
 }
 
 function punchesFromDisk(): Array<{ userId: string; kind: string; at: string }> {
