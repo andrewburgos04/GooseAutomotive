@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fleet Repair &amp; Maintenance | Goose Automotive</title>
+  <meta name="description" content="Goose Automotive fleet service for commercial and government vehicles. ASE-certified technicians, special fleet rates, and a 3-year / 36,000-mile warranty.">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div class="topbar">
+    <div class="wrap topbar__inner">
+      <p>Mon–Fri 7:00am–6:00pm · Closed weekends</p>
+      <p>GSA fleet vendor · Special fleet rates</p>
+      <a href="appointments.html">Book service</a>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="wrap header__inner">
+      <a class="logo" href="index.html">
+        <img src="assets/logo.svg" alt="">
+        <span>Goose Automotive</span>
+      </a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav id="site-nav" class="nav">
+        <a href="index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="locations.html">Locations</a>
+        <a href="fleet.html" aria-current="page">Fleet</a>
+        <a href="about.html">About</a>
+        <a class="btn btn--sm" href="appointments.html">Book appointment</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="wrap">
+        <p class="eyebrow">Fleet service</p>
+        <h1>Keep the fleet moving.</h1>
+        <p>Custom maintenance plans and rapid repair for small business fleets, commercial operations, and government vehicles. Proud GSA fleet vendor.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="grid-3">
+          <article class="card">
+            <h3>Fixed right the first time</h3>
+            <p>Downtime is expensive. Our ASE and dealer-certified technicians diagnose once and repair once.</p>
+          </article>
+          <article class="card">
+            <h3>Special fleet rates</h3>
+            <p>Ask about fleet pricing, scheduled maintenance windows, and multi-vehicle drop-offs at participating shops.</p>
+          </article>
+          <article class="card">
+            <h3>Domestic, import, Euro, hybrid &amp; diesel</h3>
+            <p>Nine Texas locations mean you can send vehicles where the work — and the technician specialty — matches.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper-2">
+      <div class="wrap split">
+        <div>
+          <p class="eyebrow">Fleet intake</p>
+          <h2>Tell us the size of the fleet. We’ll call you back.</h2>
+          <p>A fleet manager will review options, rates, and the nearest Goose shops that fit your routes.</p>
+        </div>
+        <div class="form-card">
+          <div id="fleet-success" class="form-success" tabindex="-1">
+            Thanks — we have your fleet inquiry. Call your nearest Goose location and ask for the fleet manager to lock in rates and a maintenance window.
+          </div>
+          <form id="fleet-form">
+            <div class="form-grid">
+              <label>Company
+                <input name="company" type="text" required>
+              </label>
+              <label>Your name
+                <input name="name" type="text" autocomplete="name" required>
+              </label>
+              <label>Phone
+                <input name="phone" type="tel" required>
+              </label>
+              <label>Email
+                <input name="email" type="email" required>
+              </label>
+            </div>
+            <label>Fleet size
+              <select name="size" required>
+                <option value="">Select</option>
+                <option>1–5 vehicles</option>
+                <option>6–15 vehicles</option>
+                <option>16–50 vehicles</option>
+                <option>51+ vehicles</option>
+              </select>
+            </label>
+            <label>Notes
+              <textarea name="notes" placeholder="Vehicle types, preferred shops, current pain points…"></textarea>
+            </label>
+            <button class="btn btn--ink" type="submit">Request fleet plan</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer__grid">
+      <div class="footer__brand">
+        <a class="logo" href="index.html">
+          <img src="assets/logo.svg" alt="">
+          <span>Goose Automotive</span>
+        </a>
+        <p>Family-owned auto repair for Texas drivers. Honest inspections, ASE-certified technicians, and a nationwide warranty.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <ul>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="locations.html">Locations</a></li>
+          <li><a href="fleet.html">Fleet service</a></li>
+          <li><a href="about.html">About &amp; FAQs</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Hours</h3>
+        <p>Monday–Friday<br>7:00am – 6:00pm</p>
+        <p>Saturday–Sunday<br>Closed</p>
+      </div>
+      <div>
+        <h3>Book</h3>
+        <p>Request a visit online or call your nearest shop.</p>
+        <p><a class="btn btn--sm" href="appointments.html">Book appointment</a></p>
+      </div>
+    </div>
+    <div class="wrap legal">
+      <p>&copy; <span data-year>2026</span> Goose Automotive. All rights reserved.</p>
+      <p>Let Goose be your wingman.</p>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
