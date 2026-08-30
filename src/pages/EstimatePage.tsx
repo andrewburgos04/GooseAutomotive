@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
+import { PoweredBy } from "../components/PoweredBy";
 import { inspectionCounts, jobTotal, money, vehicleTitle } from "../lib/format";
 import { useShop } from "../store";
 
@@ -144,6 +145,7 @@ export function EstimatePage() {
           )}
         </section>
       </main>
+      <PoweredBy className="pb-8 text-center text-[11px] uppercase tracking-[0.16em] text-muted" />
     </div>
   );
 }

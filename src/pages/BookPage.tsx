@@ -1,5 +1,6 @@
 import { FormEvent, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { PoweredBy } from "../components/PoweredBy";
 import { vehicleTitle } from "../lib/format";
 import { useShop } from "../store";
 
@@ -70,6 +71,7 @@ export function BookPage() {
           </form>
         )}
       </main>
+      <PoweredBy className="pb-8 text-center text-[11px] uppercase tracking-[0.16em] text-muted" />
     </div>
   );
 }

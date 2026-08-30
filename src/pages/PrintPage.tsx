@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { PoweredBy } from "../components/PoweredBy";
 import { inspectionCounts, jobTotal, money, vehicleTitle } from "../lib/format";
 import { LABEL_COPY } from "../lib/media";
 import { useShop } from "../store";
@@ -72,6 +73,7 @@ export function PrintPage() {
       )}
 
       <button className="mt-8 rounded-lg bg-goose px-4 py-2 font-bold text-white print:hidden" type="button" onClick={() => window.print()}>Print / Save PDF</button>
+      <PoweredBy className="mt-8 text-center text-[11px] uppercase tracking-[0.16em] text-muted" />
     </div>
   );
 }
