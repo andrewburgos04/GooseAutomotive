@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { BarChart3, Calendar, ClipboardList, Clock, Gauge, LogOut, MessageSquare, Package, Plus, Settings, Sparkles, Users, Wrench } from "lucide-react";
+import { PoweredBy } from "./PoweredBy";
 import { useCurrentUser, useShop } from "../store";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
@@ -23,7 +24,10 @@ export function Shell({ children }: { children: ReactNode }) {
     <div className="min-h-screen bg-mist text-navy">
       <header className="sticky top-0 z-40 border-b border-navy/10 bg-white shadow-sm">
         <div className="mx-auto flex max-w-[1600px] items-center gap-4 px-4 py-3">
-          <img src="/logo.png" alt="Goose Automotive" className="h-10 w-auto" />
+          <div className="shrink-0">
+            <img src="/logo.png" alt="Goose Automotive" className="h-10 w-auto" />
+            <PoweredBy className="mt-0.5 text-[9px] uppercase tracking-[0.14em] text-muted" />
+          </div>
           <div className="min-w-0">
             <p className="truncate text-xs font-medium text-muted">{user.title} · {user.name}</p>
           </div>
@@ -65,6 +69,7 @@ export function Shell({ children }: { children: ReactNode }) {
             <button className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-muted hover:bg-white" onClick={logout} type="button">
               <LogOut className="h-4 w-4" /> Sign out
             </button>
+            <PoweredBy className="px-3 pt-3 text-[10px] uppercase tracking-[0.14em] text-muted" />
           </div>
         </nav>
         <main className="min-w-0 flex-1 px-4 py-4 pb-24 md:pb-8">{children}</main>

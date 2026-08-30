@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { PoweredBy } from "../components/PoweredBy";
 import { useShop } from "../store";
 
 export function LoginPage() {
@@ -64,6 +65,7 @@ export function LoginPage() {
           </div>
         </div>
       </div>
+      <PoweredBy className="pb-8 text-center text-[11px] uppercase tracking-[0.16em] text-muted" />
     </div>
   );
 }
